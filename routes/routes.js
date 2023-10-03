@@ -5,7 +5,9 @@ import {
 } from "../controllers/adminController.js";
 import {
   chapterController,
-  getChapter,updateChapter, getAllChapter
+  getChapter,
+  updateChapter,
+  getAllChapter,
 } from "../controllers/chapterController.js";
 
 const router = express.Router();
@@ -18,8 +20,8 @@ router.post("/create-chapter", chapterController);
 
 router.post("/get-chapter", getChapter);
 
-router.post("/update-chapter", updateChapter)
+router.post("/update-chapter", updateChapter);
 
-router.get("/chapter", updateChapter)
+router.get("/chapter", getAllChapter);
 
 export default router;
