@@ -117,13 +117,15 @@ export const updateChapter = async ( req , res) =>{
 //Get || GET 
 export const getAllChapter = async ( req , res) =>{
     try {
-        const data = await chaptersModel.find();
-            return res.status(200).send({
-                success: true , 
-                message: `Got the all chapter`, 
-                data,
-     
-            } )
+        const data = await chaptersModel.find({});
+if(data){
+   return res.status(200).send({
+    success: true , 
+    message: `Got the all chapter`, 
+    data,
+
+} )
+}
     } catch (error) {
         console.log(error);
         res.status(500).send({
