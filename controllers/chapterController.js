@@ -81,6 +81,13 @@ export const updateChapter = async (req, res) => {
         message: "Please provide the chapter No.",
       });
     }
+    const data = await chaptersModel.findOne({ chapterCount });
+    if (!data) {
+      return res.status(404).send({
+        success: false,
+        message: "No such Chapter",
+      });
+    } else {
       const newData = await chaptersModel.findOneAndUpdate(
         { chapterCount },
         {
@@ -101,7 +108,7 @@ export const updateChapter = async (req, res) => {
         message: `Successfully update the chapter`,
         newData,
       });
-    
+    }
   } catch (error) {
     console.log(error);
     res.status(500).send({
