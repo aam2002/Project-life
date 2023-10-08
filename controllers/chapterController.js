@@ -104,7 +104,7 @@ export const updateChapter = async (req, res) => {
           new: true,
           useFindAndModify: false,
         }
-      );
+      ).sort("chapterCount:1")
 
       res.status(200).send({
         success: true,
@@ -125,7 +125,7 @@ export const updateChapter = async (req, res) => {
 //Get || GET
 export const getAllChapter = async (req, res) => {
   try {
-    const data = await chaptersModel.find({});
+    const data = await chaptersModel.find({}).sort("ChapterCount:1");
     if (data) {
       return res.status(200).send({
         success: true,
