@@ -102,11 +102,13 @@ export const updateChapter = async (req, res) => {
           new: true,
           useFindAndModify: false,
         }
+        
       );
+      const sortedData = await chaptersModel.find().sort([chapterCount , 1])
       res.status(200).send({
         success: true,
         message: `Successfully update the chapter`,
-        newData,
+        sortedData,
       });
     }
   } catch (error) {
