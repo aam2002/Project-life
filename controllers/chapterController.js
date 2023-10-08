@@ -75,7 +75,8 @@ export const getChapter = async (req, res) => {
 //Update || POST
 export const updateChapter = async (req, res) => {
   try {
-    const { chapterCount, verses , summary , chapterName, summaryImage } = req.body;
+    const { chapterCount, verses, summary, chapterName, summaryImage } =
+      req.body;
     if (!chapterCount) {
       return res.send({
         message: "Please provide the chapter No.",
@@ -96,18 +97,15 @@ export const updateChapter = async (req, res) => {
             verses: verses,
             summary: summary,
             summaryImage: summaryImage,
+            $sortByCount:"ChapterCount"
           },
-          $sort:{
-            chapterCount:1
-          }
         },
         {
           new: true,
           useFindAndModify: false,
         }
-        
       );
-  
+
       res.status(200).send({
         success: true,
         message: `Successfully update the chapter`,
