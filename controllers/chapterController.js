@@ -28,7 +28,6 @@ export const chapterController = async (req, res) => {
     res.status(201).send({
       success: true,
       message: "Created chapter successfully",
-      chapter,
     });
   } catch (error) {
     console.log(error);
@@ -89,22 +88,23 @@ export const updateChapter = async (req, res) => {
         message: "No such Chapter",
       });
     } else {
-      const newData = await chaptersModel.findOneAndUpdate(
-        { chapterCount },
-        {
-          $set: {
-            chapterName: chapterName,
-            verses: verses,
-            summary: summary,
-            summaryImage: summaryImage,
-            $sortByCount:"ChapterCount"
+      const newData = await chaptersModel
+        .findOneAndUpdate(
+          { chapterCount },
+          {
+            $set: {
+              chapterName: chapterName,
+              verses: verses,
+              summary: summary,
+              summaryImage: summaryImage,
+            },
           },
-        },
-        {
-          new: true,
-          useFindAndModify: false,
-        }
-      ).sort("chapterCount:1")
+          {
+            new: true,
+            useFindAndModify: false,
+          }
+        )
+        .sort({ chapterCount: 1 });
 
       res.status(200).send({
         success: true,
@@ -125,7 +125,9 @@ export const updateChapter = async (req, res) => {
 //Get || GET
 export const getAllChapter = async (req, res) => {
   try {
-    const data = await chaptersModel.find({}).sort("ChapterCount:1");
+    const data = await chaptersModel
+      .find({})
+      .sort({ chapterCount: 1 });
     if (data) {
       return res.status(200).send({
         success: true,
