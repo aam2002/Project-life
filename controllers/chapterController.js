@@ -97,6 +97,9 @@ export const updateChapter = async (req, res) => {
             summary: summary,
             summaryImage: summaryImage,
           },
+          $sort:{
+            chapterCount:1
+          }
         },
         {
           new: true,
@@ -104,11 +107,11 @@ export const updateChapter = async (req, res) => {
         }
         
       );
-      const sortedData = await chaptersModel.find().sort([chapterCount , 1])
+  
       res.status(200).send({
         success: true,
         message: `Successfully update the chapter`,
-        sortedData,
+        newData,
       });
     }
   } catch (error) {
